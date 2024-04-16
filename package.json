@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "mysql": "github:mysqljs/mysql"
+    "express": "^4.19.2",
+    "mysql": "github:mysqljs/mysql",
+    "properties-reader": "^2.3.0"
   }
 }
