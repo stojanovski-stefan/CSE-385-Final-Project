@@ -17,6 +17,7 @@
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
     ></script>
+    <script src="./js/display.js"></script>
   </head>
   <body>
     <section class="container container-fluid mw-100 vh-100" style="margin: 0">
@@ -25,30 +26,30 @@
         <aside id="aside" class="col-md-2 border-end text-light bg-dark">
           <!-- FILTER FORM -->
           <form class="sticky-md-top px-2" action="#" method="post">
-            <h5 class="pt-3">Filters</h5>
+            <h5 class="pt-3">Genres</h5>
             <hr class="sticky-md-top" />
             <div class="form-check">
               <input
                 class="form-check-input border-2"
                 type="checkbox"
-                value=""
-                id="shirts-checkbox"
-                name="ClothingType"
+                value="Fiction"
+                id="fiction-checkbox"
+                name="genre"
               />
               <label class="form-check-label" for="shirts-checkbox">
-                Shirts
+                Fiction
               </label>
             </div>
             <div class="form-check">
               <input
                 class="form-check-input border-2"
                 type="checkbox"
-                value="Pants"
-                id="pants-checkbox"
-                name="ClothingType"
+                value="nonfiction"
+                id="nonfiction-checkbox"
+                name="genre"
               />
               <label class="form-check-label" for="pants-checkbox">
-                Pants
+                Nonfiction
               </label>
             </div>
             <div class="form-check">
@@ -60,7 +61,7 @@
                 name="ClothingType"
               />
               <label class="form-check-label" for="jackets-checkbox">
-                Jackets
+                Biography
               </label>
             </div>
             <div class="form-check">
@@ -72,7 +73,7 @@
                 name="ClothingType"
               />
               <label class="form-check-label" for="shoes-checkbox">
-                Shoes
+                Mystery
               </label>
             </div>
             <div class="form-check">
@@ -84,30 +85,24 @@
                 name="ClothingType"
               />
               <label class="form-check-label" for="accessories-checkbox">
-                Accessories
+                Fantasy
               </label>
             </div>
             <hr />
-            <!-- Price range -->
-            <h6 class="pb-2">Price Range</h6>
+            <!-- Rating range -->
+            <h6 class="pb-2">Rating Range</h6>
             <input
-              class="form-control mb-2"
-              type="number"
-              name="minimumPrice"
-              id="min-price-input"
-              placeholder="min"
-            />
-            <input
-              class="form-control mb-2"
-              type="number"
-              name="maximumPrice"
-              id="max-price-input"
-              placeholder="max"
+              type="range"
+              class="form-range"
+              min="0"
+              max="5"
+              step="1"
+              id="customRange3"
             />
             <!-- apply filter button -->
             <input
               type="submit"
-              class="form-control btn btn-outline-primary"
+              class="mb-4 form-control btn btn-outline-primary"
               id="apply-filter-button"
               value="Apply"
             />
@@ -127,20 +122,24 @@
                     class="form-control form-control-lg"
                     id="name-input"
                     name="name"
-                    placeholder="Search movie, show, or actor"
+                    placeholder="Search title, genre, or author"
                   />
                 </div>
               </div>
               <div class="col-md-2">
-                <div class="mb-3">
+                <div class="mb-5">
                   <button type="button" class="btn btn-lg btn-success w-100">
-                    Submit
+                    Search
                   </button>
                 </div>
               </div>
             </div>
-
             <!-- Start auto generated data -->
+            <div id="books" class="row row-cols-1 row-cols-md-3 g-4">
+              <script>
+                displayBooks();
+              </script>
+            </div>
           </div>
         </div>
       </div>
