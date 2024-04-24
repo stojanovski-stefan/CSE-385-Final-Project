@@ -1,11 +1,7 @@
 var URL = " http://localhost:3000";
+var allBooksDisplayed = false;
 
-function displayBooks() {
-  let info = {
-    url: URL + "/api/v1/data",
-    method: "GET",
-  };
-
+function displayBooks(info) {
   a = $.ajax(info)
     .done((data) => {
       for (let element of data) {
@@ -33,12 +29,25 @@ function displayBooks() {
     });
 }
 
-function getSubstring(string, endIndex) {
-  let substring = string.substring(0, endIndex);
-  while (substring.indexOf(endIndex) != " ") {
-    endIndex++;
-    substring = string.substring(0, endIndex);
+function getAllBooks() {
+  let allBooks = {
+    url: URL + "/api/v1/data",
+    method: "GET",
+  };
+  allBooksDisplayed = true;
+  displayBooks(allBooks);
+}
+
+function setFilter(filterName) {
+  // clear old books
+  if (allBooksDisplayed) {
+    $("#books").html("");
   }
-  console.log(substring);
-  return substring;
+
+  let apiInfo = {
+    url: URL + `/api/v1/${filterName}`,
+    method: "GET",
+  };
+
+  displayBooks(apiInfo);
 }

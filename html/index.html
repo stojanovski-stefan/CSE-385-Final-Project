@@ -32,9 +32,10 @@
               <input
                 class="form-check-input border-2"
                 type="checkbox"
-                value="Fiction"
+                value="fiction"
                 id="fiction-checkbox"
                 name="genre"
+                onchange="setFilter('fictionBooks')"
               />
               <label class="form-check-label" for="shirts-checkbox">
                 Fiction
@@ -47,6 +48,7 @@
                 value="nonfiction"
                 id="nonfiction-checkbox"
                 name="genre"
+                onchange="setFilter('nonfictionBooks')"
               />
               <label class="form-check-label" for="pants-checkbox">
                 Nonfiction
@@ -56,11 +58,12 @@
               <input
                 class="form-check-input border-2"
                 type="checkbox"
-                value="Pants"
-                id="jackets-checkbox"
-                name="ClothingType"
+                value="biography"
+                id="biography-checkbox"
+                name="genre"
+                onchange="setFilter('biographyBooks')"
               />
-              <label class="form-check-label" for="jackets-checkbox">
+              <label class="form-check-label" for="biography-checkbox">
                 Biography
               </label>
             </div>
@@ -68,11 +71,12 @@
               <input
                 class="form-check-input border-2"
                 type="checkbox"
-                value="Pants"
-                id="shoes-checkbox"
-                name="ClothingType"
+                value="mystery"
+                id="mystery-checkbox"
+                name="genre"
+                onchange="setFilter('mysteryBooks')"
               />
-              <label class="form-check-label" for="shoes-checkbox">
+              <label class="form-check-label" for="mystery-checkbox">
                 Mystery
               </label>
             </div>
@@ -80,11 +84,12 @@
               <input
                 class="form-check-input border-2"
                 type="checkbox"
-                value="Pants"
-                id="accessories-checkbox"
-                name="ClothingType"
+                value="fantasy"
+                id="fantasy-checkbox"
+                name="genre"
+                onchange="setFilter('fantasyBooks')"
               />
-              <label class="form-check-label" for="accessories-checkbox">
+              <label class="form-check-label" for="fantasy-checkbox">
                 Fantasy
               </label>
             </div>
@@ -101,7 +106,7 @@
             />
             <!-- apply filter button -->
             <input
-              type="submit"
+              type="button"
               class="mb-4 form-control btn btn-outline-primary"
               id="apply-filter-button"
               value="Apply"
@@ -114,37 +119,52 @@
           <!-- SCROLLABLE CONTENT -->
           <div class="container my-5">
             <!-- search bar -->
-            <div class="row">
+            <form id="searchForm" class="row sticky-top mb-5">
               <div class="col-md-10">
-                <div class="mb-3">
+                <div>
                   <input
                     type="text"
                     class="form-control form-control-lg"
-                    id="name-input"
-                    name="name"
+                    id="search-bar"
+                    name="searchTerm"
                     placeholder="Search title, genre, or author"
                   />
                 </div>
               </div>
               <div class="col-md-2">
                 <div class="mb-5">
-                  <button type="button" class="btn btn-lg btn-success w-100">
+                  <button type="submit" class="btn btn-lg btn-success w-100">
                     Search
                   </button>
                 </div>
               </div>
-            </div>
+            </form>
             <!-- Start auto generated data -->
             <div id="books" class="row row-cols-1 row-cols-md-3 g-4">
               <script>
-                displayBooks();
+                getAllBooks();
               </script>
             </div>
           </div>
         </div>
       </div>
     </section>
+    <script>
+      $(document).ready(() => {
+        $("#searchForm").submit((e) => {
+          e.preventDefault();
+          let searchTerm = $("#search-bar").val();
+          let info = {
+            url: `http://localhost:3000/api/v1/search`,
+            method: "POST",
+            data: { searchTerm: searchTerm },
+          };
 
+          $("#books").html("");
+          displayBooks(info);
+        });
+      });
+    </script>
     <!-- Bootstrap -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

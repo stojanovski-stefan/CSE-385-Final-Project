@@ -2,6 +2,8 @@ const mysql = require("mysql");
 const PropertiesReader = require("properties-reader");
 const express = require("express");
 const path = require("path");
+const bodyParser = require("body-parser");
+const displayBooks = require("./html/js/display.js");
 
 // holds all sql queries.
 const queries = require("./html/js/queries.js");
@@ -24,6 +26,9 @@ var connection = mysql.createConnection({
   authPlugin: properties.get("DB_AUTH_PLUGIN"),
 });
 
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
+
 /*
  * API endpoint that gets all book data from the database.
  */
@@ -39,6 +44,7 @@ server.get("/api/v1/data", (req, res) => {
 server.get(`/api/v1/:filter`, (req, res) => {
   // extracts filter search term from URL
   let { filter } = req.params;
+  console.log(filter);
 
   // Checks if filter exists
   if (queries.hasOwnProperty(filter)) {
@@ -53,6 +59,20 @@ server.get(`/api/v1/:filter`, (req, res) => {
     }
   } else {
     res.status(404).json({ error: "Not Found" });
+  }
+});
+
+server.post("/api/v1/search", (req, res) => {
+  try {
+    let request = req.body;
+    console.log(request);
+    let sql = `SELECT * FROM project.book_data WHERE title LIKE '%${request.searchTerm}%' OR categories LIKE '%${request.searchTerm}%' OR authors LIKE '%${request.searchTerm}%' ORDER BY rating DESC LIMIT 50;`;
+    connection.query(sql, (error, results, fields) => {
+      res.json(results);
+    });
+  } catch (error) {
+    console.error("Error uploading review: ", error);
+    res.status(500).json({ error: "Cannot Upload Review" });
   }
 });
 
