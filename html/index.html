@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stock Query</title>
+    <title>Books</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon.ico" />
     <!-- bootstrap -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -94,23 +95,6 @@
               </label>
             </div>
             <hr />
-            <!-- Rating range -->
-            <h6 class="pb-2">Rating Range</h6>
-            <input
-              type="range"
-              class="form-range"
-              min="0"
-              max="5"
-              step="1"
-              id="customRange3"
-            />
-            <!-- apply filter button -->
-            <input
-              type="button"
-              class="mb-4 form-control btn btn-outline-primary"
-              id="apply-filter-button"
-              value="Apply"
-            />
           </form>
         </aside>
         <!-- END SIDE MENU -->
@@ -150,17 +134,23 @@
       </div>
     </section>
     <script>
+      // Search bar functionality
       $(document).ready(() => {
-        $("#searchForm").submit((e) => {
-          e.preventDefault();
+        // on submission of the search form
+        $("#searchForm").submit((form) => {
+          // stop default submission procedures
+          form.preventDefault();
+          // gets value of the searchbar
           let searchTerm = $("#search-bar").val();
+          // api information
           let info = {
             url: `http://localhost:3000/api/v1/search`,
             method: "POST",
             data: { searchTerm: searchTerm },
           };
-
+          // clear screen of books already displayed
           $("#books").html("");
+          // ajax call to api + paint screen with book info
           displayBooks(info);
         });
       });

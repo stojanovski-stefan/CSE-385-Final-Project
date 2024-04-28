@@ -3,7 +3,6 @@ const PropertiesReader = require("properties-reader");
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
-const displayBooks = require("./html/js/display.js");
 
 // holds all sql queries.
 const queries = require("./html/js/queries.js");
@@ -66,7 +65,7 @@ server.post("/api/v1/search", (req, res) => {
   try {
     let request = req.body;
     console.log(request);
-    let sql = `SELECT * FROM project.book_data WHERE title LIKE '%${request.searchTerm}%' OR categories LIKE '%${request.searchTerm}%' OR authors LIKE '%${request.searchTerm}%' ORDER BY rating DESC LIMIT 50;`;
+    let sql = `SELECT * FROM bookdata.books_data WHERE title LIKE '%${request.searchTerm}%' OR categories LIKE '%${request.searchTerm}%' OR authors LIKE '%${request.searchTerm}%' ORDER BY ratingsCount DESC LIMIT 50;`;
     connection.query(sql, (error, results, fields) => {
       res.json(results);
     });
