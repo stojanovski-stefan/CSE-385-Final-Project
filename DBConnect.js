@@ -37,7 +37,7 @@ server.get("/api/v1/data", (req, res) => {
   });
 });
 
-/**
+/*
  * Dynamic endpoint for filters.
  */
 server.get(`/api/v1/:filter`, (req, res) => {
@@ -73,6 +73,33 @@ server.post("/api/v1/search", (req, res) => {
     console.error("Error uploading review: ", error);
     res.status(500).json({ error: "Cannot Upload Review" });
   }
+});
+
+server.get(`/api/:bookTitle`, (req, res) => {
+  const { bookTitle } = req.params;
+  console.log(bookTitle);
+
+  const sql = `SELECT books_data.title, profile_name, review, review_summary, review_text 
+               FROM bookdata.books_data
+               INNER JOIN bookdata.books_rating ON books_data.title = books_rating.title
+               WHERE books_data.title = ?`;
+
+  connection.query(sql, [bookTitle], (error, results, fields) => {
+    if (error) {
+      console.error("Error fetching book reviews: ", error);
+      return res
+        .status(500)
+        .json({ error: `Cannot get reviews for ${bookTitle}` });
+    }
+
+    if (results.length === 0) {
+      return res
+        .status(404)
+        .json({ error: `No reviews found for ${bookTitle}` });
+    }
+
+    res.json(results);
+  });
 });
 
 // Gives the server access to all of the HTML, CSS, and JS files.
