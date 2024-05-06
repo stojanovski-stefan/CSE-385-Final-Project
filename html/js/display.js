@@ -147,6 +147,7 @@ function createModal(element) {
           Reviews
         </a>  
         <a class="btn btn-primary" 
+           style="background-color: #713c46; border-color:#713c46;"
            target="_blank" 
            href="${element.previewLink}">
            Preview
@@ -211,7 +212,7 @@ function createReviewCard(element) {
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
                   height="20"
-                  fill="#B32442"
+                  fill="#713c46"
                   class="bi bi-star-fill"
                   viewBox="0 0 16 16"
                 >

@@ -19,14 +19,25 @@
       crossorigin="anonymous"
     ></script>
     <script src="../js/display.js"></script>
+    <link rel="stylesheet" href="../css/styles.css" />
   </head>
   <body>
+    <nav class="navbar navbar-dark py-3">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html">BookViewer</a>
+      </div>
+    </nav>
     <div class="container my-5">
       <div class="row">
         <!-- leave a review -->
         <div class="col-md-6 mb-4">
           <h3>Add a review:</h3>
-          <form class="align-middle">
+          <form
+            method="post"
+            action="http://localhost:3000/api/v1/upload-review"
+            class="align-middle"
+          >
+            <input id="book-name" name="bookName" type="text" hidden />
             <div class="mb-3">
               <label for="name-input" class="form-label">Name</label>
               <input
@@ -72,16 +83,16 @@
               <input value="1" name="rating" id="star1" type="radio" />
               <label for="star1"></label>
             </div>
-            <button type="submit" class="btn btn-dark w-100">Submit</button>
+            <button id="submitButton" type="submit" class="btn btn-dark w-100">
+              Submit
+            </button>
           </form>
         </div>
         <!-- read reviews -->
         <div class="col-md-6" id="reivews-section">
           <h3>Reviews for <i id="bookTitle"></i>:</h3>
           <div>
-            <p>
-              Average Rating: <span class="text-warning" id="avgRating"></span>
-            </p>
+            <p>Average Rating: <span id="avgRating"></span></p>
           </div>
         </div>
         <script>
@@ -97,6 +108,7 @@
           // gets review data from local storages and converts it back to JSON.
           let reviewData = JSON.parse(localStorage.getItem("reviewData"));
           $("#bookTitle").html(reviewData[0].title);
+          $("#book-name").val(reviewData[0].title);
           $("#avgRating").html(getAvgRating(reviewData));
           console.log(getAvgRating(reviewData));
           // Displays reviews
@@ -106,35 +118,6 @@
         </script>
       </div>
     </div>
-
-    <style>
-      .rating {
-        display: inline-block;
-      }
-
-      .rating input {
-        display: none;
-      }
-
-      .rating label {
-        float: right;
-        cursor: pointer;
-        color: #ccc;
-        transition: color 0.3s;
-      }
-
-      .rating label:before {
-        content: "\2605";
-        font-size: 30px;
-      }
-
-      .rating input:checked ~ label,
-      .rating label:hover,
-      .rating label:hover ~ label {
-        color: #b32442;
-        transition: color 0.3s;
-      }
-    </style>
 
     <!-- Bootstrap -->
     <script

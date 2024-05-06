@@ -65,7 +65,16 @@ server.post("/api/v1/search", (req, res) => {
   try {
     let request = req.body;
     console.log(request);
-    let sql = `SELECT * FROM bookdata.books_data WHERE title LIKE '%${request.searchTerm}%' OR categories LIKE '%${request.searchTerm}%' OR authors LIKE '%${request.searchTerm}%' ORDER BY ratingsCount DESC LIMIT 50;`;
+    let sql = `SELECT * 
+               FROM bookdata.books_data 
+               WHERE title 
+               LIKE '%${request.searchTerm}%' 
+               OR categories 
+               LIKE '%${request.searchTerm}%' 
+               OR authors 
+               LIKE '%${request.searchTerm}%' 
+               ORDER BY ratingsCount 
+               DESC LIMIT 50;`;
     connection.query(sql, (error, results, fields) => {
       res.json(results);
     });
@@ -100,6 +109,25 @@ server.get(`/api/:bookTitle`, (req, res) => {
 
     res.json(results);
   });
+});
+
+server.post("/api/v1/upload-review", (req, res) => {
+  try {
+    let request = req.body;
+    console.log(request);
+
+    connection.query(
+      `INSERT INTO bookdata.books_rating (title, profile_name, review, review_summary, review_text)
+       VALUES ('${request.bookName}', '${request.name}', ${parseInt(
+        request.rating
+      )}, '${request.summary}', "${request.review}");`
+    );
+
+    res.sendFile(path.join(__dirname, "html", "pages", "confirm.html"));
+  } catch (error) {
+    console.error("ERROR:", error);
+    res.sendFile(path.join(__dirname, "html", "pages", "error.html"));
+  }
 });
 
 // Gives the server access to all of the HTML, CSS, and JS files.

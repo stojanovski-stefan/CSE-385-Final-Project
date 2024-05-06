@@ -19,12 +19,18 @@
       crossorigin="anonymous"
     ></script>
     <script src="./js/display.js"></script>
+    <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
+    <nav class="navbar navbar-dark py-3">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">BookViewer</a>
+      </div>
+    </nav>
     <section class="container container-fluid mw-100 vh-100" style="margin: 0">
       <div class="row h-100">
         <!-- SIDE MENU -->
-        <aside id="aside" class="col-md-2 border-end text-light bg-dark">
+        <aside id="aside" class="col-md-2 border-end">
           <!-- FILTER FORM -->
           <form class="sticky-md-top px-2" action="#" method="post">
             <h5 class="pt-3">Genres</h5>
@@ -117,7 +123,11 @@
               </div>
               <div class="col-md-2">
                 <div class="mb-5">
-                  <button type="submit" class="btn btn-lg btn-success w-100">
+                  <button
+                    id="searchButton"
+                    type="submit"
+                    class="btn btn-lg btn-secondary w-100"
+                  >
                     Search
                   </button>
                 </div>
