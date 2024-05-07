@@ -26,3 +26,7 @@ CREATE TABLE books_rating (
     review_summary VARCHAR(1000),
     review_text VARCHAR(1000)
 );
+
+-- Allows the program to access the db with the password.
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_password';
+FLUSH PRIVILEGES;
