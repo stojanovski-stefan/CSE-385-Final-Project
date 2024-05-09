@@ -61,6 +61,9 @@ server.get(`/api/v1/:filter`, (req, res) => {
   }
 });
 
+/**
+ * API endpoint for searching by book title, genre, or author.
+ */
 server.post("/api/v1/search", (req, res) => {
   try {
     let request = req.body;
@@ -84,6 +87,9 @@ server.post("/api/v1/search", (req, res) => {
   }
 });
 
+/**
+ * API endpoint for retrieving reviews for a certain book.
+ */
 server.get(`/api/:bookTitle`, (req, res) => {
   const { bookTitle } = req.params;
   console.log(bookTitle);
@@ -111,6 +117,9 @@ server.get(`/api/:bookTitle`, (req, res) => {
   });
 });
 
+/**
+ * API endpoint that allows the user to upload their own book review.
+ */
 server.post("/api/v1/upload-review", (req, res) => {
   try {
     let request = req.body;

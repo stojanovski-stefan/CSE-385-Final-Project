@@ -21,6 +21,11 @@ function displayBooks(info) {
     });
 }
 
+/**
+ * Gets all reviews for a certain book, and saves the data
+ * to the browsers local storage.
+ * @param {string} bookTitle
+ */
 function getReviews(bookTitle) {
   let reviews = {
     url: URL + `/api/${bookTitle}`,
@@ -182,6 +187,11 @@ function createCard(element) {
   `;
 }
 
+/**
+ * Creates a card with review data.
+ * @param {Object} element
+ * @returns HTML
+ */
 function createReviewCard(element) {
   return `
           <div class="card">
