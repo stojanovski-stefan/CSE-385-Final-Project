@@ -39,13 +39,19 @@ ignore 1 rows;
 
 ```
 
-5. Using [npm](https://nodejs.org/en), install all the dependencies listed in package.json
+5. Open `db.properties` and change the password so it matches the password to your database. Do not change any other property.
+
+```
+DB_PASSWORD=YourPassword;
+```
+
+6. Using [npm](https://nodejs.org/en), install all the dependencies listed in package.json
 
 ```
 npm install
 ```
 
-6. Run DBConnect.js. This files creates a locally hosted server that listens on port 3000.
+7. Run DBConnect.js. This files creates a locally hosted server that listens on port 3000.
 
 ```
 node DBConnect.js
